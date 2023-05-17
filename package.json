@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^2.0.22"
+    "colors": "^1.4.0",
+    "nodemon": "^2.0.22",
+    "simple-node-logger": "^21.8.12"
   }
 }
