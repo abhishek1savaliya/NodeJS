@@ -5,7 +5,17 @@ const app = express();
 
  
 const dirpath = path.join(__dirname,'./public');
-app.use(express.static(dirpath));
+// app.use(express.static(dirpath));
+
+app.get('',(_,res)=>{
+        res.sendFile(`${dirpath}/index.html`);
+})
+app.get('/krishna',(_,res)=>{
+        res.sendFile(`${dirpath}/about.html`);
+})
+app.get('*',(_,res)=>{
+        res.sendFile(`${dirpath}/404.html`);
+})
 
 
 
