@@ -17,9 +17,15 @@ app.get('',(_,res)=>{
 app.get('/profile',(_,res)=>{
         const user = {
                 name : 'Krishna',
-                email : 'abhisheksavaliya666@gmail.com'
+                email : 'abhisheksavaliya666@gmail.com',
+                country : 'USA',
+                skills : ['PHP','js','C++','Java','Node']
         }
         res.render('profile',{user});
+});
+
+app.get('/login',(_,res)=>{
+        res.render('login');
 });
 
 
