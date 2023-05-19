@@ -1,43 +1,29 @@
 const express = require('express');
 const path = require('path');
+const reqFilter = require('./middleware');
+const route = express.Router();
 
 const app = express();
 
- 
-const dirpath = path.join(__dirname,'./public');
-// app.use(express.static(dirpath));
+route.use(reqFilter);
 
-
-app.set('view engine','ejs');
-
-app.get('',(_,res)=>{
-        res.sendFile(`${dirpath}/index.html`);
+app.get('/',(_,res)=>{
+          res.send("Welcome to home page");
 });
 
-app.get('/profile',(_,res)=>{
-        const user = {
-                name : 'Krishna',
-                email : 'abhisheksavaliya666@gmail.com',
-                country : 'USA',
-                skills : ['PHP','js','C++','Java','Node']
-        }
-        res.render('profile',{user});
+app.get('/user',(_,res)=>{
+     res.send('Welcome to user page');
 });
 
-app.get('/login',(_,res)=>{
-        res.render('login');
+route.get('/contact',(_,res)=>{
+     res.send('Welcome to contact page');
 });
 
+route.get('/about',(_,res)=>{
+     res.send('Welcome to about page');
+});
 
-
-app.get('/krishna',(_,res)=>{
-        res.sendFile(`${dirpath}/about.html`);
-})
-app.get('*',(_,res)=>{
-        res.sendFile(`${dirpath}/404.html`);
-})
-
-
+app.use('/',route);
 
 app.listen(3000,()=>{
     console.log("Server is running on port 3000");
