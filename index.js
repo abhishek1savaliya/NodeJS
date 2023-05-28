@@ -41,4 +41,10 @@ const deleteInDB = async () => {
     })
 };
 
-deleteInDB();
+const findInDB = async()=>{
+    const Product = mongoose.model('product', productSchema);
+    let data = await Product.find();
+    console.log(data);
+}
+
+findInDB();
