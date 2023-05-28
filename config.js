@@ -1,4 +1,20 @@
-const mongoose = require('mongoose');
+const mysql = require('mysql');
 
-mongoose.connect('mongodb://127.0.0.1:27017/krishna');
+const con = mysql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"",
+    database:"story"
+});
+
+con.connect((err)=>{
+    if(err){
+        console.warn(err)
+    }
+    else{
+        console.warn("connected");
+    }
+});
+
+module.exports = con;
 
