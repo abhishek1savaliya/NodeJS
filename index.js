@@ -39,4 +39,16 @@ app.put('/:id',(req,res)=>{
     })
 });
 
+app.delete('/:id',(req,res)=>{
+    const data = req.params.id ;
+    con.query('delete from udata where id=?',data,(err,result,field)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send(result);
+        }
+    })
+});
+
 app.listen(3000);
