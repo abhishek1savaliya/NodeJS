@@ -1,21 +1,24 @@
 const express = require('express');
-require('./config');
-const product = require('./product');
+const multer = require('multer');
 
 const app = express();
-app.use(express.json());
+
+const upload = multer({
+    storage:multer.diskStorage({
+        destination: function (req,file,cb){
+            cb(null,'./uploads');
+        },
+        filename:function (req,file,cb){
+            cb(null,file.fieldname+"-"+Date.now()+".jpg");
+        }
+    })
+}).single("user_file");
 
 
-app.get('/search/:key',async (req,res)=>{
-    let data = await product.find({
-        "$or": [
-            {"name":{$regex:req.params.key}},
-            {  "brand":{$regex:req.params.key}}
-        ]
-    });
-    res.send(data);
-});
+app.post('/upload',upload,(req,res)=>{
+    res.send("File upload done");
+})
 
-app.listen(3000, () => {
-    console.log("Server is listening PORT 3000");
+app.listen(3000,()=>{
+    console.log("App is listening PORT 3000");
 });
