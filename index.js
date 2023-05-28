@@ -1,50 +1,17 @@
-const mongoose = require('mongoose');
+const express = require('express');
+require('./config');
+const product = require('./product');
 
-const main = async () => {
-    await mongoose.connect('mongodb://127.0.0.1:27017/Krishna');
-}
-const productSchema = new mongoose.Schema({
-    name: String,
-    price: Number,
-    brand: String,
-    category: String
-});
-main();
+const app = express();
 
+app.use(express.json());
 
-const saveInDB = async () => {
-    const ProductsModel = mongoose.model('product', productSchema);
-    let data = new ProductsModel({
-        name: "morpich",
-        price: 9000,
-        brand: "Peacock",
-        category: "Bird"
-    });
-
+app.post('/create',async (req, res) => {
+    let data = new product(req.body);
     let result = await data.save();
-    console.log(result);
-};
+    res.send(result);
+});
 
-const updateInDB = async () => {
-    const Product = mongoose.model('product', productSchema);
-    let data = await Product.updateOne({ name: "morpich" }, {
-        $set: {
-            price: 70,
-        }
-    });
-};
-
-const deleteInDB = async () => {
-    const Product = mongoose.model('product', productSchema);
-    let data = await Product.deleteOne({
-        name: "morpich"
-    })
-};
-
-const findInDB = async()=>{
-    const Product = mongoose.model('product', productSchema);
-    let data = await Product.find();
-    console.log(data);
-}
-
-findInDB();
+app.listen(3000, () => {
+    console.log("Server is listening PORT 3000");
+})
