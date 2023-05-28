@@ -1,20 +1,24 @@
 const mongoose = require('mongoose');
 
-const main = async ()=>{
+const main = async () => {
     await mongoose.connect('mongodb://127.0.0.1:27017/Krishna');
     const productSchema = new mongoose.Schema({
-        name:String,
-        price:Number
+        name: String,
+        price: Number,
+        brand: String,
+        category: String
     });
 
-    const ProductsModel = mongoose.model('product',productSchema);
-    
+    const ProductsModel = mongoose.model('product', productSchema);
+
     let data = new ProductsModel({
-        name:"morpich",
-        price:9000
+        name: "morpich",
+        price: 9000,
+        brand: "Peacock",
+        category: "Bird"
     });
 
-    let result =await data.save();
+    let result = await data.save();
     console.log(result);
 };
 
